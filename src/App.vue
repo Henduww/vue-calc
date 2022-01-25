@@ -1,15 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="container">
+    <div class="target">
+      
+    </div>
+    <Moveable
+        className="moveable"
+        v-bind:target="['.target']"
+        v-bind:draggable="true"
+        v-bind:scalable="true"
+        @drag="onDrag"
+        @scale="onScale"
+    />
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Moveable from 'vue3-moveable'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Moveable,
+  },
+  methods: {
+    onDrag({ target, transform }) {
+      target.style.transform = transform
+    },
+    onScale({ target, drag }) {
+      target.style.transform = drag.transform
+    },
   }
 }
 </script>
