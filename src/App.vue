@@ -91,6 +91,7 @@ export default {
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 5px;
 }
 
 .display {

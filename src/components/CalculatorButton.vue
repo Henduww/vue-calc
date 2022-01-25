@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         val: {
@@ -18,7 +17,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .calc-button {
     padding: 5px;
 }
