@@ -22,9 +22,9 @@
             <calculator-button />
             <calculator-button @clicked="onCalcBtnClick" val="0" />
             <calculator-button @clicked="onCalcBtnClick" val="." />
-            <calculator-button @clicked="onCalcBtnClick" val="=" />
+            <calculator-button @clicked="onCalcBtnClick" class="equals" val="=" />
     </div>
-    <div>
+    <div class="history-wrapper">
         <dynamic-list :list="history" class="calc-history" />
     </div>
 </template>
@@ -67,19 +67,62 @@ export default {
 </script>
 
 <style>
+    /*
+        Spanish Gray: #939393
+        Gray: #808080
+        Granite Gray: #676767
+        Pantone Orange: #FE5800
+        Philippine Orange: #FF7300
+    */
+
+    @media (max-width: 600px) {
+        .calculator {
+            display: grid;
+        }
+    }
+
     .calculator {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 5px;
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 5px;
+        background-color: #b8b8b8;
+        padding: 15px;
+        height: 600px;
+        width: 400px;
     }
 
     .display {
-    grid-column: 5/1;
-    height: 70px;
+        grid-column: 5/1;
+        height: 130px;
+        background-color: #939393;
+        border: 1px solid #939393;
+        border-radius: 10px;
+        color: #353535;
     }
 
     .display > p {
-    float: right;
-    margin-right: 25px;
+        float: right;
+        margin-right: 25px;
+        font-size: 32px;
+    }
+
+    .calc-button {
+        padding: 5px;
+        background-color: #676767;
+        color: white;
+        border: 1px solid #939393;
+        border-radius: 5px;
+    }
+
+    .equals {
+        background-color: #FF7300;
+    }
+
+    .history-wrapper {
+        float: right;
+    }
+
+    .calc-history {
+        list-style: none;
     }
 </style>
