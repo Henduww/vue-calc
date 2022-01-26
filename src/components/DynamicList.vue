@@ -1,6 +1,6 @@
 <template>
     <ul :class="$attrs.class">
-        <li v-for="(item, i) in list" :key="i">
+        <li v-for="(item, i) in list.slice().reverse()" :key="i">
             {{ item }}
         </li>
     </ul>

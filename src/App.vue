@@ -68,9 +68,9 @@ export default {
     onCalcBtnClick(val) {
       if (val === "=") {
         let ans = eval(this.equation)
+        this.history.push(this.equation + " = " + ans)
         this.equation = ans.toString()
         this.ans = ans
-        this.history.push(ans)
       }
       else if (val === "C")
         this.equation = ""
