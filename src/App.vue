@@ -25,6 +25,9 @@
     <calculator-button @clicked="onCalcBtnClick" val="." />
     <calculator-button @clicked="onCalcBtnClick" val="=" />
   </div>
+  <div>
+    <dynamic-list :list="history" class="calc-history" />
+  </div>
   <Moveable
       className="moveable"
       v-bind:target="['.target']"
@@ -39,16 +42,19 @@
 <script>
 import Moveable from 'vue3-moveable'
 import CalculatorButton from './components/CalculatorButton.vue'
+import DynamicList from './components/DynamicList.vue'
 
 export default {
   name: 'App',
   data: function() {
     return {
       equation: "",
-      ans: 0
+      ans: 0,
+      history: []
     }
   },
   components: {
+    DynamicList,
     CalculatorButton,
     Moveable,
   },
@@ -64,6 +70,7 @@ export default {
         let ans = eval(this.equation)
         this.equation = ans.toString()
         this.ans = ans
+        this.history.push(ans)
       }
       else if (val === "C")
         this.equation = ""
