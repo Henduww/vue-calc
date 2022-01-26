@@ -1,38 +1,13 @@
 <template>
 <div class="container">
-  <div class="target wrapper">
-    <div class="display">
-      <p id="Equation">{{ equation }}</p>
-    </div>
-    <calculator-button @clicked="onCalcBtnClick" val="C" />
-    <calculator-button @clicked="onCalcBtnClick" val="ANS" />
-    <calculator-button @clicked="onCalcBtnClick" val="DEL" />
-    <calculator-button @clicked="onCalcBtnClick" val=" + " />
-    <calculator-button @clicked="onCalcBtnClick" val="1" />
-    <calculator-button @clicked="onCalcBtnClick" val="2" />
-    <calculator-button @clicked="onCalcBtnClick" val="3" />
-    <calculator-button @clicked="onCalcBtnClick" val=" - " />
-    <calculator-button @clicked="onCalcBtnClick" val="4" />
-    <calculator-button @clicked="onCalcBtnClick" val="5" />
-    <calculator-button @clicked="onCalcBtnClick" val="6" />
-    <calculator-button @clicked="onCalcBtnClick" val=" * " />
-    <calculator-button @clicked="onCalcBtnClick" val="7" />
-    <calculator-button @clicked="onCalcBtnClick" val="8" />
-    <calculator-button @clicked="onCalcBtnClick" val="9" />
-    <calculator-button @clicked="onCalcBtnClick" val=" / " />
-    <calculator-button />
-    <calculator-button @clicked="onCalcBtnClick" val="0" />
-    <calculator-button @clicked="onCalcBtnClick" val="." />
-    <calculator-button @clicked="onCalcBtnClick" val="=" />
-  </div>
-  <div>
-    <dynamic-list :list="history" class="calc-history" />
+  <div class="target">
+    <calculator />
   </div>
   <Moveable
       className="moveable"
-      v-bind:target="['.target']"
-      v-bind:draggable="true"
-      v-bind:scalable="true"
+      :target="['.target']"
+      :draggable="true"
+      :scalable="true"
       @drag="onDrag"
       @scale="onScale"
   />
@@ -41,22 +16,14 @@
 
 <script>
 import Moveable from 'vue3-moveable'
-import CalculatorButton from './components/CalculatorButton.vue'
-import DynamicList from './components/DynamicList.vue'
+import Calculator from './components/Calculator.vue'
 
 export default {
   name: 'App',
-  data: function() {
-    return {
-      equation: "",
-      ans: 0,
-      history: []
-    }
-  },
+  
   components: {
-    DynamicList,
-    CalculatorButton,
-    Moveable,
+    Calculator,
+    Moveable
   },
   methods: {
     onDrag({ target, transform }) {
@@ -65,22 +32,6 @@ export default {
     onScale({ target, drag }) {
       target.style.transform = drag.transform
     },
-    onCalcBtnClick(val) {
-      if (val === "=") {
-        let ans = eval(this.equation)
-        this.history.push(this.equation + " = " + ans)
-        this.equation = ans.toString()
-        this.ans = ans
-      }
-      else if (val === "C")
-        this.equation = ""
-      else if (val === "DEL")
-        this.equation = this.equation.slice(0, -1)
-      else if (val === "ANS")
-        this.equation += this.ans
-      else 
-        this.equation += val
-    }
   }
 }
 </script>
@@ -93,22 +44,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 5px;
-}
-
-.display {
-  grid-column: 5/1;
-  height: 70px;
-}
-
-.display > p {
-  float: right;
-  margin-right: 25px;
 }
 
 </style>
