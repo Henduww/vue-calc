@@ -1,5 +1,10 @@
 <template>
     <div class="calculator">
+        <div class="calc-top">
+            <button class="toggle-history-button" @click="historyIsDisplayed = !historyIsDisplayed">
+                History
+            </button>
+        </div>
         <div class="display">
             <p id="Equation">{{ equation }}</p>
         </div>
@@ -24,7 +29,7 @@
             <calculator-button @clicked="onCalcBtnClick" val="." />
             <calculator-button @clicked="onCalcBtnClick" class="equals" val="=" />
     </div>
-    <div class="history-wrapper">
+    <div v-if="historyIsDisplayed" class="history-wrapper">
         <dynamic-list :list="history" class="calc-history" />
     </div>
 </template>
@@ -38,7 +43,8 @@ export default {
         return {
             equation: "",
             ans: 0,
-            history: []
+            history: [],
+            historyIsDisplayed: false
         }
     },
     components: {
@@ -75,29 +81,27 @@ export default {
         Philippine Orange: #FF7300
     */
 
-    @media (max-width: 600px) {
-        .calculator {
-            display: grid;
-        }
-    }
-
     .calculator {
-        display: inline-grid;
+        display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto 1fr 1fr 1fr 1fr 1fr;
         gap: 5px;
         background-color: #b8b8b8;
         padding: 15px;
-        height: 600px;
-        width: 400px;
+        height: inherit;
+        width: inherit;
+        box-sizing: border-box;
     }
 
     .display {
-        grid-column: 5/1;
+        grid-column: 1/5;
         height: 130px;
         background-color: #939393;
         border: 1px solid #939393;
         border-radius: 10px;
         color: #353535;
+        margin-bottom: 20px;
+        margin-top: 5px;
     }
 
     .display > p {
@@ -114,15 +118,46 @@ export default {
         border-radius: 5px;
     }
 
+    .calc-button:hover {
+        background-color: #777;
+    }
+
+    .calc-button:active {
+        border: inset 2px solid gray;
+        background-color: red;
+    }
+
     .equals {
         background-color: #FF7300;
     }
 
     .history-wrapper {
-        float: right;
+        background-color: #cecece;
+        box-shadow: inset 10px 5px 20px 0px #9c9c9c;
+        width: inherit;
+        padding-right: 15px;
+        overflow-y: scroll;
     }
 
     .calc-history {
         list-style: none;
+        padding-left: 20px;
+    }
+
+    .toggle-history-button {
+        float: right;
+        padding: 5px 10px;
+        color: white;
+        background-color: #676767;
+        border: 1px solid #939393;
+        border-radius: 5px;
+    }
+
+    .toggle-history-button:hover {
+        background-color: #777;
+    }
+
+    .calc-top {
+        grid-column: 4/4;
     }
 </style>

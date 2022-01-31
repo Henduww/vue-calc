@@ -7,9 +7,9 @@
       className="moveable"
       :target="['.target']"
       :draggable="true"
-      :scalable="true"
+      :resizable="true"
       @drag="onDrag"
-      @scale="onScale"
+      @resize="onResize"
   />
 </div>
 </template>
@@ -29,8 +29,10 @@ export default {
     onDrag({ target, transform }) {
       target.style.transform = transform
     },
-    onScale({ target, drag }) {
-      target.style.transform = drag.transform
+    onResize({ target, width, height}) {
+      console.log('onResize', width, height)
+      target.style.width = `${width}px`
+      target.style.height = `${height}px`
     },
   }
 }
@@ -48,6 +50,18 @@ export default {
 
   .target {
     position: absolute;
-    
+  }
+
+  @media (max-width: 600px) {
+    .target {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .target {
+      height: 600px;
+      width: 400px;
+    }
   }
 </style>
